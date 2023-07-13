@@ -38,12 +38,12 @@ separacionNiveles(NecesidadA,NecesidadB,Separacion):-
   separacionEntre(NivelA,NivelB,Separacion).
 
 separacionEntre(Nivel,Nivel,0).
-separacionEntre(NivelA,NivelB,Separacion):- /* Noentiendo como funciona */
+separacionEntre(NivelA,NivelB,Separacion):-
   nivelSuperior(NivelB, NivelIntermedio),
   separacionEntre(NivelA,NivelIntermedio,SeparacionAnterior),
   Separacion is SeparacionAnterior + 1.
 
-/* Modelar las necesidades (sin satisfacer) de cada persona.
+/* 3. Modelar las necesidades (sin satisfacer) de cada persona.
 Recuerden leer los puntos siguientes para saber cómo se va a usar y cómo modelar esta información.
 Por ejemplo:
 ● Carla necesita alimentarse, descansar y tener un empleo.
@@ -60,18 +60,22 @@ persona(roberto).
 persona(manuel).
 persona(charly).
 
-necesidadesSinSatisfacer(carla,[alimentacion,descansar,empleo]).
-necesidadesSinSatisfacer(juan,[exito,afecto]).
-necesidadesSinSatisfacer(roberto,[amistad]).
-necesidadesSinSatisfacer(manuel,[libertad]).
-necesidadesSinSatisfacer(charly,[afecto]).
+necesidadSinSatisfacer(carla,alimentacion).
+necesidadSinSatisfacer(carla,descansar).
+necesidadSinSatisfacer(carla,empleo).
+
+necesidadSinSatisfacer(juan,exito).
+necesidadSinSatisfacer(juan,afecto).
+
+necesidadSinSatisfacer(roberto,amistad).
+necesidadSinSatisfacer(manuel,libertad).
+necesidadSinSatisfacer(charly,afecto).
 
 /* 4- Encontrar la necesidad de mayor jerarquía de una persona. */
-% necesidadDeMayorJerarquia(Persona, NecesidadDeJerarquia):-
-%   persona(Persona),
-%   necesidadesSinSatisfacer(Persona,[Necesidad|Resto]),
-%   not((necesidadesSinSatisfacer(Persona,))
+necesidadDeMayorJerarquia(Persona, Necesidad):-
+  necesidadSinSatisfacer(Persona,Necesidad),
+  not((necesidadSinSatisfacer(Persona,OtraNecesidad),mayorJerarquia(OtraNecesidad,Necesidad))).
 
-% mayorJerarquia(Necesidad1,Necesidad2):-
-%   separacionEntre(Necesidad2,Necesidad1,Separacion),
-%   Separacion > 0.
+mayorJerarquia(Necesidad1,Necesidad2):-
+  separacionEntre(Necesidad2,Necesidad1,Separacion),
+  Separacion > 0.
