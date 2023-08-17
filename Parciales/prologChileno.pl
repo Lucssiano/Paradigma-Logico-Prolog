@@ -43,7 +43,8 @@ alguna canción juntos. */
 colaboradores(Compositor, OtroCompositor):-
   cancion(_,Compositores,_),
   member(Compositor,Compositores),
-  member(OtroCompositor,Compositores).
+  member(OtroCompositor,Compositores),
+  Compositor \= OtroCompositor.
 
 /* 4. Modelar en la solución a los siguientes trabajadores: */
 % a. Tulio, conductor con 5 años de experiencia.
@@ -106,5 +107,25 @@ sueldo(Persona, Sueldo):-
   not(member(react,LenguajesConocidos)),
   Sueldo is 30000 * AniosDeExperiencia + 5000 * CantLenguajesConocidos.
 
+/* El concepto de la materia que se puede relacionar a esto son los functores y las listas, se agregan tantos functores como diferentes tipos de trabajo haya */
 
+/* esPersona(Persona):-trabajador(Persona,_).
 
+sueldoTotal(Persona,SueldoTotal):-
+    esPersona(Persona),
+    findall(Sueldo,(trabajador(Persona,Trabajo),encontrarSueldo(Trabajo,Sueldo)),Sueldos),
+    sumlist(Sueldos, SueldoTotal).
+    
+encontrarSueldo(Trabajo,Sueldos):-sueldo(Trabajo,Sueldos).
+
+sueldo(Persona,Sueldo):-
+    esPersona(Persona),
+    trabajador(Persona,Trabajo),
+    sueldo(Trabajo,Sueldo).
+
+sueldo(conductor(Anios),Sueldo):- Sueldo is Anios*10000.
+sueldo(reportero(Anios,Notas),Sueldo):- Sueldo is (Anios*10000)+(Notas*100).
+sueldo(periodista(Anios,licenciatura),Sueldo):- incremento(20,(Anios*5000),Sueldo).
+sueldo(periodista(Anios,posgrado),Sueldo):- incremento(35,Anios*5000,Sueldo).
+
+incremento(Porcentaje,Valor,ValorFinal):- ValorFinal is Valor + (Valor*0.01*Porcentaje). */
